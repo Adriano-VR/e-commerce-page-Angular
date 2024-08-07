@@ -1,0 +1,16 @@
+.menu__item {
+
+  position: relative;
+  &:hover {
+    cursor: pointer;
+  }
+  &:hover::after {
+    content: "";
+    width: 100%;
+    position: absolute;
+    background: orange;
+    height: 5px;
+    left: 0;
+    bottom: -45px;
+  }
+}

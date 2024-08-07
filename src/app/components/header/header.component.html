@@ -1,0 +1,18 @@
+<header class="flex w-full justify-between h-[12vh] border-b ">
+  <div class="flex items-center justify-center gap-16">
+    <img src="/assets/images/logo.svg" alt="logo">
+
+        <nav class="flex gap-10 text-[#68707d]" >
+          <ul *ngFor="let registro of opcoes" >
+          <li (mouseover)="borda(registro.toLowerCase())"  [ngClass]="{ 'menu__item': opcaoSelecionada === registro.toLowerCase() }">{{registro}}</li>
+        </ul>
+      </nav>
+
+
+  </div>
+  <div class="flex items-center gap-10">
+    <img src="/assets/images/icon-cart.svg" alt="car">
+    <img src="/assets/images/image-avatar.png" alt="vb" class="size-14">
+  </div>
+</header>
+
