@@ -10,9 +10,43 @@
 
 
   </div>
-  <div class="flex items-center gap-10">
-    <img src="/assets/images/icon-cart.svg" alt="car">
+  <div class="flex items-center gap-10 relative">
+    <img
+      src="../../../assets/images/icon-cart.svg"
+      class="size-6 cursor-pointer"
+      (mouseover)="toggleModal()"
+    >
     <img src="/assets/images/image-avatar.png" alt="vb" class="size-14">
+
+    <div
+
+      class="bg-white shadow rounded absolute w-80 top-3/4 right-[5%] transition-opacity duration-300"
+      [ngStyle]="{ opacity: modalVisible ? 1 : 0 }"
+
+      (mouseleave)="hideModal()"
+    >
+      <h2 class="font-bold p-6 border-b">Cart</h2>
+      <div class="h-32 flex items-center justify-center">
+        <ng-container *ngIf="getCart().length > 0; else sem">
+          <div *ngFor="let produto of getCart()">
+            <span>{{ produto.name }}</span>
+            <span>{{ produto.quantity }}</span>
+          </div>
+        </ng-container>
+        <ng-template #sem>
+          <h1>Your Cart is Empty</h1>
+        </ng-template>
+      </div>
+
+
+    </div>
+
+
   </div>
+
+
+
+
+
 </header>
 
