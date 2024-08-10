@@ -1,26 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CartService } from '../../cart.service';
+import { Produto } from '../../interface/interface';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  opcoes : string[] = ['Collections', 'Men' , 'Women' , 'About' , 'Contact'];
-  opcaoSelecionada = "";
+  opcoes: string[] = ['Collections', 'Men', 'Women', 'About', 'Contact'];
+  opcaoSelecionada = '';
+  modalVisible = false;
+  cartItems: Produto[] = [];
 
-  constructor(private cartService: CartService) {}
+  @Input() receivedData?: number;
 
+  constructor(private cartService: CartService) {
+    this.loadCart();
+  }
 
   borda(registroLower: string) {
     this.opcaoSelecionada = registroLower;
   }
-
-  modalVisible = false;
 
   toggleModal() {
     this.modalVisible = !this.modalVisible;
@@ -30,12 +34,16 @@ export class HeaderComponent {
     this.modalVisible = false;
   }
 
-  addToCart(product: any) {
-    this.cartService.addProduct(product);
+  loadCart() {
+    this.cartItems = this.cartService.getCart();
+    this.receivedData = undefined
   }
 
-  getCart() {
-    return this.cartService.getCart();
+  deleteProduct(productId: number) {
+    const productToDelete = this.cartItems.find(item => item.id === productId);
+    if (productToDelete) {
+      this.cartService.delete(productToDelete);
+      this.loadCart(); // Refresh the cart items after deletion
+    }
   }
-
 }

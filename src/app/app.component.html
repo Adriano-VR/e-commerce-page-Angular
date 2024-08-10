@@ -1,5 +1,4 @@
-<app-header></app-header>
-<main class="flex flex-col ">
-  <app-section-principal></app-section-principal>
+<app-header [receivedData]="quantity"></app-header>
+<main class="flex flex-col">
+  <app-section-principal (dataEmitter)="onQuantityChange($event)"></app-section-principal>
 </main>
-

@@ -11,26 +11,45 @@
 
   </div>
   <div class="flex items-center gap-10 relative">
-    <img
+
+    <div  class="w-full h-full flex items-center relative " >
+
+      <img
       src="../../../assets/images/icon-cart.svg"
-      class="size-6 cursor-pointer"
+      class="size-6 cursor-pointer "
       (mouseover)="toggleModal()"
     >
+    <span class="absolute top-1/4 left-3/4 px-1.5 bg-orange-500 text-sm text-black font-bold rounded-full transition-opacity duration-700 opacity-0" [ngClass]="{'opacity-100': receivedData !== undefined, 'opacity-0': receivedData === undefined}">
+      {{receivedData}}
+    </span>
+
+    </div>
     <img src="/assets/images/image-avatar.png" alt="vb" class="size-14">
 
     <div
 
-      class="bg-white shadow rounded absolute w-80 top-3/4 right-[5%] transition-opacity duration-300"
+      class="bg-white shadow rounded absolute w-96 top-3/4 right-[5%] transition-opacity duration-300"
       [ngStyle]="{ opacity: modalVisible ? 1 : 0 }"
-
       (mouseleave)="hideModal()"
+
     >
       <h2 class="font-bold p-6 border-b">Cart</h2>
-      <div class="h-32 flex items-center justify-center">
-        <ng-container *ngIf="getCart().length > 0; else sem">
-          <div *ngFor="let produto of getCart()">
-            <span>{{ produto.name }}</span>
-            <span>{{ produto.quantity }}</span>
+      <div class="h-32 flex items-center justify-center p-5 ">
+        <ng-container *ngIf="cartItems.length > 0; else sem">
+          <div *ngFor="let produto of cartItems" class="flex gap-4 items-center p-2 ">
+            <img src={{produto.img}} alt="" class="size-12 rounded-xl">
+            <div class="flex flex-col items-center">
+                <span class="font-semibold block">{{ produto.name }}</span>
+                <div class="flex gap-4 items-start justify-start w-full" >
+
+                  <span class="font-bold">${{produto.price! * receivedData!}}.00</span>
+                  <span> x {{ receivedData }}</span>
+
+                </div>
+            </div>
+              <img src="../../../assets/images/icon-delete.svg" alt="" class="h-6 cursor-pointer" (click)="deleteProduct(produto.id)">
+
+
           </div>
         </ng-container>
         <ng-template #sem>

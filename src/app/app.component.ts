@@ -11,5 +11,13 @@ import { SectionPrincipalComponent } from './components/section-principal/sectio
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'my-first-project';
+
+  title = 'e-commerce-page';
+
+  quantity?: number;  // Variável para armazenar a quantidade
+
+  // Método que captura o valor emitido pelo SectionPrincipalComponent
+  onQuantityChange(quantity: number) {
+    this.quantity = quantity;
+  }
 }
